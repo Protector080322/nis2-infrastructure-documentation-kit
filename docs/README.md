@@ -22,7 +22,7 @@ The documentation in this kit is built upon three core principles:
 
 ## Getting Started
 
-1. **Review the [Main Architecture](../README.md#kmu-enterprise-architecture):** Understand the high-level design.
+1. **Review the [Infrastructure Architecture](./architecture.md):** Understand the high-level design.
 2. **Perform an Audit:** Use the [Audit Script](../scripts/README.md#1-linuxkmu-infra-auditsh) to assess your current environment.
 3. **Implement Segmentation:** Follow the [VLAN Guide](../network/README.md) to isolate your network zones.
 4. **Define Backups:** Establish a robust strategy using the [Backup Framework](../backup/README.md).

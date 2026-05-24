@@ -38,4 +38,4 @@ Secure remote access is provided via **VPN (Virtual Private Network)** with:
 - Access restricted to the Management or Office VLANs based on the user role.
 
 ## Connectivity Diagram
-Refer to the [Main Infrastructure Diagram](../README.md#kmu-enterprise-architecture) for a visual representation of the topology.
+Refer to the [Infrastructure Architecture](../docs/architecture.md) for a visual representation of the topology.

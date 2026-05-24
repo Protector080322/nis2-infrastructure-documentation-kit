@@ -14,7 +14,7 @@ We follow an enhanced version of the traditional backup rule to ensure maximum p
 
 ## Backup Infrastructure
 
-As shown in the [Enterprise Architecture](../README.md#kmu-enterprise-architecture), backup traffic is isolated in **VLAN 60**.
+As shown in the [Enterprise Architecture](../docs/architecture.md), backup traffic is isolated in **VLAN 60**.
 
 - **Backup Server:** Centralized management of backup jobs (e.g., Veeam, Proxmox Backup Server).
 - **Immutable Repository:** Storage with "write-once-read-many" (WORM) capabilities or Linux-based immutable storage.
