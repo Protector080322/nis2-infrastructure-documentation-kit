@@ -1,3 +1,8 @@
+# Infrastructure Architecture
+
+## KMU Enterprise Architecture
+
+```mermaid
 flowchart TD
 
     Internet((Internet))
@@ -53,3 +58,7 @@ flowchart TD
     Zabbix --> Reports
     SIEM --> Reports
     NetBox --> Reports
+```
+
+## Network Topology Image
+![Network Topology](../diagrams/network-topology.png)

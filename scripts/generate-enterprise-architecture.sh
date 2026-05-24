@@ -50,7 +50,7 @@ flowchart TD
 
     VLAN70 --> Zabbix[Zabbix Monitoring]
     VLAN70 --> SIEM[Log Server / SIEM]
-    VLAN70 --> Reports[Audit Reports]
+    VLAN70 --> Reports[Technical Reports]
 
     Entra --> MFA[MFA / Conditional Access]
     Mail --> Clients

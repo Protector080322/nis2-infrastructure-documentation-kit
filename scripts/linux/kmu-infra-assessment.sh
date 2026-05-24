@@ -1,13 +1,13 @@
 #!/bin/bash
 
 REPORT_DIR="reports"
-REPORT_FILE="$REPORT_DIR/kmu-infra-audit-$(hostname)-$(date +%Y-%m-%d_%H-%M).txt"
+REPORT_FILE="$REPORT_DIR/kmu-infra-assessment-$(hostname)-$(date +%Y-%m-%d_%H-%M).txt"
 
 mkdir -p "$REPORT_DIR"
 
 {
 echo "=================================================="
-echo " KMU Infrastructure Basic Audit"
+echo " KMU Infrastructure Basic Technical Assessment"
 echo "=================================================="
 echo "Host: $(hostname)"
 echo "Date: $(date)"
