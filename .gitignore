@@ -1,3 +1,5 @@
+# Local collected infrastructure data
+collectors/
 reports/
+*.json
 *.log
-*.tmp
