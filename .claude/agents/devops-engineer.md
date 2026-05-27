@@ -1,9 +1,3 @@
-Вставь это полностью в:
-
-```bash
-nano .claude/agents/devops-engineer.md
-```
-
 ---
 
 name: devops-engineer
