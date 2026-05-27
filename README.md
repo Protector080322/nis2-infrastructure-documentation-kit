@@ -9,7 +9,7 @@ A professional-grade framework for modern IT infrastructure architecture, securi
 This toolkit transforms infrastructure management into a structured, AI-assisted engineering process. It provides the methodology, documentation, and automation needed to build and maintain secure, resilient, and compliant environments.
 
 ### Key Pillars
-- **NIS2 Readiness:** Built-in frameworks for EU cybersecurity directive compliance.
+- **NIS2-oriented technical readiness:** Built-in frameworks for EU cybersecurity directive compliance.
 - **Security by Design:** Hardening workflows and network segmentation strategies.
 - **AI-Enhanced:** Reusable prompt library to leverage LLMs for analysis and auditing.
 - **Infrastructure as Code (IaC):** Standardized patterns for Docker and Linux automation.
