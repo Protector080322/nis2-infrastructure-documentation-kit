@@ -1,0 +1,315 @@
+{
+  "audit_report": {
+    "metadata": {
+      "timestamp": "2026-05-28T09:15:30Z",
+      "script_version": "1.0.0",
+      "audit_type": "infrastructure",
+      "kmu_size": "medium",
+      "servers_counted": 12
+    },
+    "summary": {
+      "critical_findings": 2,
+      "high_findings": 5,
+      "medium_findings": 8,
+      "low_findings": 3,
+      "overall_risk": "MEDIUM",
+      "compliance_readiness": "60%"
+    },
+    "system": {
+      "hostname": "prod-server-01",
+      "kernel": "5.15.0-67-generic",
+      "os": "Ubuntu 24.04 LTS",
+      "uptime": "45 days",
+      "cpu": {
+        "cores": 16,
+        "model": "Intel(R) Xeon(R) E-2288G CPU @ 3.70GHz"
+      },
+      "memory": {
+        "total": "64Gi",
+        "used": "42Gi",
+        "utilization_percent": 65.6
+      }
+    },
+    "network": {
+      "interfaces": [
+        {
+          "name": "eth0",
+          "ip": "192.168.1.100",
+          "netmask": "255.255.255.0",
+          "gateway": "192.168.1.1",
+          "mac": "00:1a:2b:3c:4d:5e",
+          "status": "UP",
+          "mtu": 1500
+        },
+        {
+          "name": "eth1",
+          "ip": "10.0.0.50",
+          "netmask": "255.255.0.0",
+          "gateway": "10.0.0.1",
+          "mac": "00:1a:2b:3c:4d:5f",
+          "status": "UP",
+          "mtu": 1500
+        }
+      ],
+      "dns": [
+        "8.8.8.8",
+        "8.8.4.4"
+      ],
+      "domain": "example.local"
+    },
+    "open_ports": [
+      {
+        "port": 22,
+        "protocol": "TCP",
+        "service": "ssh",
+        "status": "OPEN"
+      },
+      {
+        "port": 80,
+        "protocol": "TCP",
+        "service": "http",
+        "status": "OPEN"
+      },
+      {
+        "port": 443,
+        "protocol": "TCP",
+        "service": "https",
+        "status": "OPEN"
+      },
+      {
+        "port": 3306,
+        "protocol": "TCP",
+        "service": "mysql",
+        "status": "OPEN"
+      },
+      {
+        "port": 5432,
+        "protocol": "TCP",
+        "service": "postgresql",
+        "status": "OPEN"
+      }
+    ],
+    "docker": {
+      "installed": true,
+      "version": "24.0.6",
+      "running_containers": 8,
+      "total_containers": 15,
+      "images_count": 12,
+      "volumes_count": 5,
+      "networks": [
+        {
+          "name": "bridge",
+          "type": "bridge"
+        },
+        {
+          "name": "host",
+          "type": "host"
+        },
+        {
+          "name": "none",
+          "type": "none"
+        },
+        {
+          "name": "infra-network",
+          "type": "bridge"
+        }
+      ]
+    },
+    "firewall": {
+      "ufw": "active",
+      "firewalld": "inactive",
+      "rules_count": 45,
+      "ssh_restricted": true,
+      "http_allowed": true,
+      "https_allowed": true
+    },
+    "updates": {
+      "package_manager": "apt",
+      "available_updates": 12,
+      "security_updates": 3,
+      "kernel_update_available": false,
+      "last_update": "2026-05-25T14:30:00Z"
+    },
+    "disk_usage": [
+      {
+        "device": "/dev/sda1",
+        "total": "500Gi",
+        "used": "380Gi",
+        "available": "120Gi",
+        "percent": "76%",
+        "mount": "/",
+        "filesystem": "ext4"
+      },
+      {
+        "device": "/dev/sdb1",
+        "total": "2Ti",
+        "used": "1.8Ti",
+        "available": "200Gi",
+        "percent": "90%",
+        "mount": "/data",
+        "filesystem": "ext4"
+      },
+      {
+        "device": "/dev/sdc1",
+        "total": "1Ti",
+        "used": "500Gi",
+        "available": "500Gi",
+        "percent": "50%",
+        "mount": "/backup",
+        "filesystem": "ext4"
+      }
+    ],
+    "security": {
+      "ssh": {
+        "enabled": true,
+        "port": 22,
+        "password_authentication": false,
+        "root_login": false,
+        "key_based_auth": true
+      },
+      "sudo": {
+        "configured": true,
+        "users_with_sudo": 4
+      },
+      "selinux": {
+        "available": false,
+        "apparmor": "enabled"
+      },
+      "ssl_tls": {
+        "tls_version": "1.3",
+        "certificate_valid_until": "2026-12-31",
+        "certificate_days_remaining": 216
+      }
+    },
+    "services": {
+      "running": [
+        {
+          "name": "ssh",
+          "status": "active",
+          "enabled": true
+        },
+        {
+          "name": "docker",
+          "status": "active",
+          "enabled": true
+        },
+        {
+          "name": "nginx",
+          "status": "active",
+          "enabled": true
+        },
+        {
+          "name": "mysql",
+          "status": "active",
+          "enabled": true
+        },
+        {
+          "name": "postgresql",
+          "status": "active",
+          "enabled": true
+        }
+      ],
+      "enabled_but_not_running": [
+        {
+          "name": "backup-service",
+          "status": "inactive",
+          "enabled": true
+        }
+      ]
+    },
+    "backup": {
+      "strategy": "3-2-1-1-0",
+      "last_full_backup": "2026-05-27T20:00:00Z",
+      "last_incremental_backup": "2026-05-28T02:00:00Z",
+      "backup_server": "backup-01.local",
+      "offsite_backup": "s3://company-backups/prod-01",
+      "immutable_copy": "tape-vault-02",
+      "recovery_tested": true,
+      "last_recovery_test": "2026-05-15T10:00:00Z"
+    },
+    "nis2_readiness": {
+      "access_control": {
+        "status": "PARTIALLY_COMPLIANT",
+        "score": 70,
+        "issues": [
+          "Multi-factor authentication not enforced on all users"
+        ]
+      },
+      "encryption": {
+        "status": "COMPLIANT",
+        "score": 95,
+        "notes": "TLS 1.3 enabled, data at rest encrypted"
+      },
+      "incident_response": {
+        "status": "PARTIALLY_COMPLIANT",
+        "score": 60,
+        "issues": [
+          "Incident response plan not formally documented",
+          "Response time targets not defined"
+        ]
+      },
+      "supply_chain_security": {
+        "status": "COMPLIANT",
+        "score": 85,
+        "notes": "Vendor assessments in place"
+      },
+      "monitoring": {
+        "status": "PARTIALLY_COMPLIANT",
+        "score": 75,
+        "issues": [
+          "Log retention policy needs update"
+        ]
+      },
+      "overall_score": 77,
+      "assessment_date": "2026-05-28"
+    },
+    "recommendations": {
+      "critical": [
+        {
+          "id": "REC-001",
+          "title": "Implement Multi-Factor Authentication",
+          "description": "Enable MFA for all privileged user accounts",
+          "effort": "HIGH",
+          "impact": "HIGH",
+          "timeline": "30 days"
+        },
+        {
+          "id": "REC-002",
+          "title": "Increase Disk Space on /data partition",
+          "description": "/data is at 90% capacity. Expansion needed within 60 days",
+          "effort": "MEDIUM",
+          "impact": "HIGH",
+          "timeline": "60 days"
+        }
+      ],
+      "high": [
+        {
+          "id": "REC-003",
+          "title": "Document Incident Response Plan",
+          "description": "Create formal incident response and communication procedures",
+          "effort": "MEDIUM",
+          "impact": "HIGH",
+          "timeline": "45 days"
+        },
+        {
+          "id": "REC-004",
+          "title": "Implement Log Centralization",
+          "description": "Set up centralized logging for all services",
+          "effort": "HIGH",
+          "impact": "MEDIUM",
+          "timeline": "60 days"
+        }
+      ],
+      "medium": [
+        {
+          "id": "REC-005",
+          "title": "Apply Pending Security Updates",
+          "description": "Install 3 available security updates",
+          "effort": "LOW",
+          "impact": "MEDIUM",
+          "timeline": "immediate"
+        }
+      ]
+    }
+  }
+}
