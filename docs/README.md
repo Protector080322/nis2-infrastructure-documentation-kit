@@ -17,7 +17,7 @@ Welcome to the NIS2 Infrastructure Documentation Kit. This guide provides a cent
 The documentation in this kit is built upon three core principles:
 
 1. **Security by Design:** Every architectural decision is evaluated for its security impact.
-2. **NIS2 Readiness:** Frameworks are aligned with the requirements of the NIS2 directive for SMEs.
+2. **NIS2 Technical Readiness:** Frameworks are aligned with the requirements of the NIS2 directive for SMEs.
 3. **Operational Clarity:** Documentation should be practical, clear, and actionable for IT administrators.
 
 ## Getting Started

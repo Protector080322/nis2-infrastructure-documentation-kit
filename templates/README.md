@@ -1,30 +1,22 @@
-# Technical Assessment Templates
+# Infrastructure Engineering Templates
 
-This directory serves as a placeholder for technical assessment and documentation templates. Use these templates to standardize infrastructure documentation and maintain NIS2 compliance.
+A collection of professional Markdown templates designed for infrastructure documentation, risk management, and operational readiness.
 
-## Recommended Templates
+## Core Templates
 
-To maintain a professional infrastructure documentation kit, it is recommended to maintain the following templates (Markdown or Excel/CSV format):
+| Template | Description | File |
+|---|---|---|
+| **Asset Inventory** | Comprehensive tracking of hardware and software assets. | [asset-inventory.md](./asset-inventory.md) |
+| **Risk Register** | Technical risk identification and mitigation tracking. | [risk-register.md](./risk-register.md) |
+| **Change Log** | Professional tracking of infrastructure modifications. | [change-log.md](./change-log.md) |
+| **Technical Readiness Checklist** | Internal assessment aligned with NIS2 technical pillars. | [technical-readiness-checklist.md](./technical-readiness-checklist.md) |
+| **Incident Response Notes** | Documentation for real-time incident handling. | [incident-response-notes.md](./incident-response-notes.md) |
+| **Backup Verification** | Evidence of functional recovery and restoration tests. | [backup-verification.md](./backup-verification.md) |
 
-### 1. Asset Inventory
-A comprehensive list of all hardware and software assets.
-- Hostname, IP Address, OS, Role, VLAN, Owner, Serial Number, Patch Status.
+## Usage
+- Copy these templates to your project's documentation folder.
+- Fill in the technical details based on your infrastructure audit results.
+- Keep the documents updated as part of your standard operational procedures.
 
-### 2. Risk Assessment
-Identify, analyze, and evaluate technical risks.
-- Asset, Threat, Vulnerability, Impact, Likelihood, Risk Level, Mitigation Strategy.
-
-### 3. Change Management Log
-Document all significant changes to the infrastructure.
-- Date, Changed By, Description, Impact, Approval, Rollback Plan.
-
-### 4. Incident Response Plan (SME Edition)
-A streamlined guide for responding to common security incidents.
-- Detection, Containment, Eradication, Recovery, Lessons Learned.
-
-### 5. Access Control Matrix
-Define who has access to which systems and data.
-- User/Group, System, Access Level (Read/Write/Admin), Justification.
-
-## How to use
-Copy the relevant template file and populate it with your organization's specific data. Store the completed assessments in a secure, version-controlled location.
+---
+*Note: These templates are designed for technical engineering purposes. They do not provide legal advice or official compliance certifications.*

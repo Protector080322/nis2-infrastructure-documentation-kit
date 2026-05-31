@@ -1,13 +1,13 @@
 # Infrastructure Engineering Workflows
 
-This directory defines standardized workflows for infrastructure management, security operations, and compliance.
+This directory defines standardized workflows for infrastructure management, security operations, and readiness.
 
 ## Core Workflows
 
 | Workflow | Description | Link |
 |---|---|---|
 | **Linux Administration** | Standardized procedures for server lifecycle management | [linux-administration.md](./linux-administration.md) |
-| **NIS2 Compliance** | Step-by-step guide to achieving and maintaining NIS2 readiness | [nis2-compliance.md](./nis2-compliance.md) |
+| **NIS2 Technical Readiness** | Step-by-step guide to achieving and maintaining NIS2 readiness | [nis2-technical-readiness.md](./nis2-technical-readiness.md) |
 | **Security Analysis** | Continuous security assessment and hardening workflow | [security-analysis.md](./security-analysis.md) |
 | **DevOps Automation** | Integrating infrastructure changes into a CI/CD mindset | [devops-automation.md](./devops-automation.md) |
 

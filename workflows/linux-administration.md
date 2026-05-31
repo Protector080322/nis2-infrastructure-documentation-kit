@@ -7,7 +7,7 @@
 
 ## 2. Security Hardening
 - **Automated Audit:** Run `scripts/linux/kmu-infra-audit.sh` to get the baseline.
-- **Apply Hardening:** Use the [Linux Hardening Prompt](../prompts/linux-hardening.md) to generate and run a hardening script.
+- **Apply Hardening:** Use the [Linux Hardening Prompt](../prompts/linux-infrastructure-assessment.md) to generate and run a hardening script.
 - **Network:** Configure UFW/Firewalld to allow only required ports.
 - **Updates:** Enable `unattended-upgrades`.
 
