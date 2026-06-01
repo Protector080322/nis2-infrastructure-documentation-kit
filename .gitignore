@@ -1,5 +1,49 @@
 # Local collected infrastructure data
 collectors/
 reports/
-*.json
+
+# Audit outputs
+audit-*.json
 *.log
+
+# Secrets & credentials
+.env
+.env.local
+*.key
+*.pem
+*.crt
+*.pub
+secrets/
+
+# IDE configurations
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Python environments
+.venv/
+venv/
+ENV/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Docker
+.docker-build/
+
+# Node (if used)
+node_modules/
+package-lock.json
