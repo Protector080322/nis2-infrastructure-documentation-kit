@@ -7,7 +7,7 @@
 ## 2. Vulnerability Assessment
 - **Automated:** Use tools like OpenVAS, Nessus, or cloud-native scanners.
 - **Manual:** Review configurations for critical systems (Firewalls, AD, Web Servers).
-- **AI-Assisted:** Use the [Security Audit Prompt](../prompts/security-audit.md) on configuration snippets.
+- **AI-Assisted:** Use the [Security Audit Prompt](../prompts/security-baseline-review.md) on configuration snippets.
 
 ## 3. Hardening & Remediation
 - **Prioritize:** Focus on "Critical" and "High" findings first.

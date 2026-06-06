@@ -1,6 +1,6 @@
 # AI-Assisted Infrastructure Engineering Toolkit
 
-A professional-grade framework for modern IT infrastructure architecture, security hardening, and NIS2 compliance.
+A professional-grade framework for modern IT infrastructure architecture, security hardening, and NIS2 technical readiness.
 
 ---
 
@@ -40,10 +40,10 @@ Run the audit script on your existing Linux hosts to gather data:
 ```
 
 ### 2. AI Analysis
-Copy the audit results and use the [Security Audit Prompt](./prompts/security-audit.md) to identify gaps.
+Copy the audit results and use the [Security Baseline Review Prompt](./prompts/security-baseline-review.md) to identify gaps.
 
 ### 3. Implementation
-Follow the [NIS2 Compliance Workflow](./workflows/nis2-compliance.md) to implement the required technical measures.
+Follow the [NIS2 Technical Readiness Workflow](./workflows/nis2-technical-readiness.md) to implement the required technical measures.
 
 ### 4. Documentation
 Use the [Templates](./templates/) to build your asset inventory and risk register.

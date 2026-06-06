@@ -1,12 +1,19 @@
-# Template: Asset Inventory
+# Template: Infrastructure Asset Inventory
 
-| Asset ID | Hostname | IP Address | OS | Role | VLAN | Owner | Criticality |
-|---|---|---|---|---|---|---|---|
-| AS-001 | core-sw-01 | 10.10.0.1 | JunOS | Core Switch | 10 | IT-Admin | Critical |
-| AS-002 | srv-dc-01 | 10.20.0.10 | Win2022 | AD Domain Controller | 20 | IT-Admin | Critical |
-| AS-003 | srv-prox-01 | 10.10.0.50 | Debian | Hypervisor (Proxmox) | 10 | IT-Admin | High |
-| AS-004 | srv-backup-01 | 10.60.0.10 | Ubuntu | Backup Server | 60 | IT-Admin | High |
-| AS-005 | wrk-admin-01 | 10.10.0.101 | Win11 | Admin Workstation | 10 | Jane Doe | Medium |
+*Purpose: Comprehensive tracking of hardware, virtual, and critical software assets for German KMU environments.*
+
+| Asset ID | Hostname | IP Address | OS / Version | Role / Function | VLAN | Criticality | Owner (Dept) | Last Audit |
+|---|---|---|---|---|---|---|---|---|
+| SRV-001 | srv-prod-db | 10.20.0.10 | Ubuntu 24.04 | Main Production DB | 20 (Server) | Critical | IT / Ops | 2024-05-15 |
+| NET-001 | core-sw-01 | 10.10.0.1 | JunOS 21.x | Core L3 Switch | 10 (Mgmt) | Critical | IT / Admin | 2024-04-10 |
+| BK-001 | backup-repo | 10.60.0.5 | Debian 12 | Immutable Backup Repo | 60 (Backup) | High | IT / Backup | 2024-05-01 |
+| APP-001 | erp-web-01 | 10.20.0.20 | Docker / Alpine | Web Frontend ERP | 20 (Server) | High | Finance | 2024-05-10 |
 
 ---
+### Asset Categorization (KMU Standard)
+- **Critical:** Immediate business stop if failed (ERP, Core Network, Primary DB).
+- **High:** Significant disruption, but temporary workarounds possible (File Server, Mail).
+- **Medium:** Operational impact, limited scope (Printers, non-critical Apps).
+- **Low:** Minimal impact (Test systems, Guest WiFi).
+
 *Last updated: 202X-XX-XX*

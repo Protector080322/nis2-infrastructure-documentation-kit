@@ -1,9 +1,9 @@
-# Workflow: NIS2 Compliance Implementation
+# Workflow: NIS2 Technical Readiness Implementation
 
 ## Phase 1: Preparation & Scoping
 1. **Identify Essential/Important Entities:** Determine if the organization falls under NIS2 scope.
 2. **Asset Inventory:** Populate the `templates/asset-inventory.md`.
-3. **Risk Analysis:** Conduct a high-level risk assessment using `templates/risk-assessment.md`.
+3. **Risk Analysis:** Conduct a high-level risk assessment using `templates/risk-register.md`.
 
 ## Phase 2: Technical Implementation
 1. **Network Segmentation:** Implement the [VLAN Strategy](../network/README.md).
@@ -17,6 +17,6 @@
 3. **Training:** Conduct cybersecurity awareness training for employees.
 
 ## Phase 4: Verification & Audit
-1. **Internal Audit:** Use provided [Security Audit Prompts](../prompts/security-audit.md).
+1. **Internal Audit:** Use provided [Security Audit Prompts](../prompts/security-baseline-review.md).
 2. **Remediation:** Address identified gaps.
-3. **Certification:** (If applicable) Prepare for official audit.
+3. **Readiness Assessment:** (If applicable) Prepare for technical readiness assessment.
