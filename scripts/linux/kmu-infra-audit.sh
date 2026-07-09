@@ -1,82 +1,181 @@
 #!/bin/bash
 
+# ==============================================================================
+# KMU Infrastructure Audit Script
+# ==============================================================================
+# Purpose: Safe, read-only infrastructure audit for Linux systems.
+# Supported: Ubuntu 24.04, Linux Mint
+# Security: No destructive commands, no credential collection, no priv-esc.
+# ==============================================================================
+
+set -u
+
+# Configuration
 REPORT_DIR="reports"
-REPORT_FILE="$REPORT_DIR/kmu-infra-audit-$(hostname)-$(date +%Y-%m-%d_%H-%M).txt"
+JSON_OUTPUT=false
+RUN_AUDIT=true
 
-mkdir -p "$REPORT_DIR"
+# Help function
+show_help() {
+    echo "Usage: $0 [options]"
+    echo ""
+    echo "Options:"
+    echo "  --json      Output in JSON format"
+    echo "  --help      Show this help message"
+}
 
-{
-echo "=================================================="
-echo " KMU Infrastructure Basic Audit"
-echo "=================================================="
-echo "Host: $(hostname)"
-echo "Date: $(date)"
-echo "User: $(whoami)"
-echo ""
+# Parse arguments
+for arg in "$@"; do
+    case $arg in
+        --json)
+            JSON_OUTPUT=true
+            ;;
+        --help)
+            show_help
+            RUN_AUDIT=false
+            ;;
+    esac
+done
 
-echo "================ SYSTEM ================="
-uname -a
-echo ""
-lsb_release -a 2>/dev/null || cat /etc/os-release
-echo ""
+# --- Audit Functions ---
 
-echo "================ CPU / RAM ================="
-lscpu | grep -E "Model name|CPU\\(s\\)|Architecture"
-echo ""
-free -h
-echo ""
+get_system_info() {
+    local hostname=$(hostname)
+    local os_version=$(lsb_release -ds 2>/dev/null || grep PRETTY_NAME /etc/os-release | cut -d'"' -f2)
+    local kernel=$(uname -r)
+    local uptime=$(uptime -p)
+    local virt=$(systemd-detect-virt 2>/dev/null || echo "none")
 
-echo "================ DISK ================="
-df -h
-echo ""
-lsblk
-echo ""
+    if [ "$JSON_OUTPUT" = true ]; then
+        echo "  \"system\": {"
+        echo "    \"hostname\": \"$hostname\","
+        echo "    \"os_version\": \"$os_version\","
+        echo "    \"kernel_version\": \"$kernel\","
+        echo "    \"uptime\": \"$uptime\","
+        echo "    \"virtualization\": \"$virt\""
+        echo "  }"
+    else
+        echo "=== SYSTEM ==="
+        echo "Hostname: $hostname"
+        echo "OS:       $os_version"
+        echo "Kernel:   $kernel"
+        echo "Uptime:   $uptime"
+        echo "Virt:     $virt"
+        echo ""
+    fi
+}
 
-echo "================ NETWORK INTERFACES ================="
-ip addr
-echo ""
+get_resources() {
+    local cpu_model=$(lscpu | grep "Model name" | sed 's/Model name:[[:space:]]*//' | head -n 1)
+    local cpu_cores=$(nproc)
+    local mem_total=$(free -h | grep Mem | awk '{print $2}')
+    local mem_used=$(free -h | grep Mem | awk '{print $3}')
+    local disk_usage=$(df -h / | tail -n 1 | awk '{print $5}')
 
-echo "================ ROUTING ================="
-ip route
-echo ""
+    if [ "$JSON_OUTPUT" = true ]; then
+        echo "  \"resources\": {"
+        echo "    \"cpu_model\": \"$cpu_model\","
+        echo "    \"cpu_cores\": $cpu_cores,"
+        echo "    \"memory_total\": \"$mem_total\","
+        echo "    \"memory_used\": \"$mem_used\","
+        echo "    \"root_disk_usage\": \"$disk_usage\""
+        echo "  }"
+    else
+        echo "=== RESOURCES ==="
+        echo "CPU:    $cpu_model ($cpu_cores cores)"
+        echo "RAM:    $mem_used / $mem_total"
+        echo "Disk /: $disk_usage"
+        echo ""
+    fi
+}
 
-echo "================ DNS ================="
-cat /etc/resolv.conf
-echo ""
+get_network() {
+    local ports=$(ss -tuln | grep LISTEN | awk '{print $5}' | rev | cut -d: -f1 | rev | sort -u | tr '\n' ',' | sed 's/,$//')
+    local ports_json=""
+    if [ -n "$ports" ]; then
+        ports_json=$(echo "$ports" | sed 's/,/", "/g' | sed 's/^/"/' | sed 's/$/"/')
+    fi
 
-echo "================ OPEN LOCAL PORTS ================="
-ss -tulpen 2>/dev/null || ss -tuln
-echo ""
+    if [ "$JSON_OUTPUT" = true ]; then
+        echo "  \"network\": {"
+        echo "    \"listening_ports\": [$ports_json]"
+        echo "  }"
+    else
+        echo "=== NETWORK ==="
+        echo "Listening Ports: $ports"
+        echo "Interfaces:"
+        ip -br addr 2>/dev/null || ip addr
+        echo ""
+    fi
+}
 
-echo "================ FIREWALL ================="
-sudo ufw status verbose 2>/dev/null || echo "ufw not available or no sudo permission"
-echo ""
+get_docker() {
+    local docker_installed=false
+    local docker_version="none"
+    local docker_containers=0
 
-echo "================ SERVICES ================="
-systemctl list-units --type=service --state=running --no-pager
-echo ""
+    if command -v docker >/dev/null 2>&1; then
+        docker_installed=true
+        docker_version=$(docker version --format '{{.Server.Version}}' 2>/dev/null || echo "unprivileged")
+        docker_containers=$(docker ps -q 2>/dev/null | wc -l || echo "0")
+    fi
 
-echo "================ INSTALLED PACKAGES COUNT ================="
-dpkg -l | wc -l 2>/dev/null || echo "dpkg not available"
-echo ""
+    if [ "$JSON_OUTPUT" = true ]; then
+        echo "  \"docker\": {"
+        echo "    \"installed\": $docker_installed,"
+        echo "    \"version\": \"$docker_version\","
+        echo "    \"running_containers\": $docker_containers"
+        echo "  }"
+    else
+        echo "=== DOCKER ==="
+        echo "Installed: $docker_installed"
+        echo "Version:   $docker_version"
+        echo "Running:   $docker_containers"
+        echo ""
+    fi
+}
 
-echo "================ DOCKER ================="
-docker ps 2>/dev/null || echo "Docker not available or no permission"
-echo ""
+get_security() {
+    local ufw_status=$(sudo ufw status 2>/dev/null | head -n 1 | awk '{print $2}')
+    ufw_status=${ufw_status:-"unknown/inactive"}
+    local updates=$(apt list --upgradable 2>/dev/null | grep -c upgradable || echo "0")
 
-echo "================ VIRTUALIZATION ================="
-systemd-detect-virt 2>/dev/null || echo "No virtualization info"
-echo ""
+    if [ "$JSON_OUTPUT" = true ]; then
+        echo "  \"security\": {"
+        echo "    \"firewall_status\": \"$ufw_status\","
+        echo "    \"pending_updates\": $updates"
+        echo "  }"
+    else
+        echo "=== SECURITY ==="
+        echo "Firewall: $ufw_status"
+        echo "Updates:  $updates pending"
+        echo ""
+    fi
+}
 
-echo "================ SECURITY NOTES ================="
-echo "- Check open ports"
-echo "- Check firewall status"
-echo "- Check backup strategy"
-echo "- Check MFA for admin access"
-echo "- Check patch management"
-echo "- Check network segmentation"
+# --- Execution ---
 
-} > "$REPORT_FILE"
-
-echo "Report created:"
-echo "$REPORT_FILE"
+if [ "$RUN_AUDIT" = true ]; then
+    if [ "$JSON_OUTPUT" = true ]; then
+        echo "{"
+        get_system_info
+        echo ","
+        get_resources
+        echo ","
+        get_network
+        echo ","
+        get_docker
+        echo ","
+        get_security
+        echo "}"
+    else
+        echo "KMU Infrastructure Audit Report"
+        echo "Generated: $(date)"
+        echo "--------------------------------------------------"
+        get_system_info
+        get_resources
+        get_network
+        get_docker
+        get_security
+    fi
+fi
